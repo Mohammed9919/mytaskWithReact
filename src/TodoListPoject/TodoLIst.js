@@ -181,7 +181,10 @@ export default function TodoList() {
 // $ git add . --> to uplod file
 // $ git status --> to show file upload
 // then copy comand form githp repo
-// git commit -m "first commit"
-// git branch -M main
-// git remote add origin git@github.com:Mohammed9919/mytaskWithReact.git
-// git push -u origin main
+// git commit -m "first commit"  --> fom git hup repo
+// git branch -M main --> fom git hup repo
+// git remote add origin git@github.com:Mohammed9919/mytaskWithReact.git --> fom git hup repo
+// git push -u origin main --> fom git hup repo
+// Add a homepage property in this format*: https://{username}.github.io/{repo-name} --> from ghithub react gh pages
+//  "predeploy": "npm run build","deploy": "gh-pages -d build" to scripe in package.json --> from ghithub react gh pages
+// npm run deploy
