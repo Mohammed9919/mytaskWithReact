@@ -12,72 +12,77 @@ import TextField from "@mui/material/TextField";
 // components
 import Todo from "./Todo";
 
-// context 
+// context
 import { TodosContext } from "../contexts/todosContext";
-import { useState , useContext ,useEffect } from "react";
-
+import { useState, useContext, useEffect } from "react";
 
 //~ we use UUID libaray to generate unique id
 // first go documention to get the commnad --> npm install uuid
 // then  we import the uuid libaray to used
 // uidv4 --> name of function that generate unique id like '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
-import { v4 as uuidv4 } from 'uuid';
-
-
+import { v4 as uuidv4 } from "uuid";
 
 export default function TodoList() {
-  const {todos , setTodos} = useContext(TodosContext);
+  const { todos, setTodos } = useContext(TodosContext);
   const [titleInput, setTiltlInput] = useState("");
-  const [displaydedTodosType , setDisplayedTodosType ] = useState("all")
-  
-   
+  const [displaydedTodosType, setDisplayedTodosType] = useState("all");
+
   // filterion array
   const completedTodos = todos.filter((t) => t.isCompleted);
   const notcompletedTodos = todos.filter((t) => !t.isCompleted);
   let todosToBeRendered = todos;
   if (displaydedTodosType === "completed") {
-     todosToBeRendered = completedTodos;
+    todosToBeRendered = completedTodos;
   } else if (displaydedTodosType === "non-completed") {
     todosToBeRendered = notcompletedTodos;
   } else {
-     todosToBeRendered = todos;
+    todosToBeRendered = todos;
   }
-    const todosTask = todosToBeRendered.map((t) => {
-      return <Todo key={t.id} todo={t}  />
-    })
+  const todosTask = todosToBeRendered.map((t) => {
+    return <Todo key={t.id} todo={t} />;
+  });
   // give todos form the local Storge , this code while be called once when the component load
- useEffect(() => {
-  const storageTodos = JSON.parse(localStorage.getItem("todos"));
-  if (storageTodos && Array.isArray(storageTodos)) {
-    setTodos(storageTodos);
-  }
-}, []);
+  useEffect(() => {
+    const storageTodos = JSON.parse(localStorage.getItem("todos"));
+    if (storageTodos && Array.isArray(storageTodos)) {
+      setTodos(storageTodos);
+    }
+  }, []);
 
   function changeDisplayedType(e) {
     setDisplayedTodosType(e.target.value);
   }
   function handleAddClick() {
-    let updatedTodos = [...todos, { id: uuidv4(), title: titleInput, details: "", isCompleted: false }];
+    let updatedTodos = [
+      ...todos,
+      { id: uuidv4(), title: titleInput, details: "", isCompleted: false }
+    ];
     setTodos(updatedTodos);
-    localStorage.setItem("todos", JSON.stringify(updatedTodos) );
+    localStorage.setItem("todos", JSON.stringify(updatedTodos));
     setTiltlInput("");
-   }
+  }
   return (
     <Container maxWidth="sm">
-      <Card sx={{ minWidth: 275 , "&::-webkit-scrollbar": {
-      width: "8px",
-    },
-    "&::-webkit-scrollbar-track": {
-      backgroundColor: "#f1f1f1",
-      borderRadius: "10px",
-    },
-    "&::-webkit-scrollbar-thumb": {
-      backgroundColor: "#888",
-      borderRadius: "10px",
-    },
-    "&::-webkit-scrollbar-thumb:hover": {
-      backgroundColor: "#555",
-    },  }  } style={{maxHeight:"90vh" , borderRadius:"10px" , overflowY:"auto"}}>
+      <Card
+        sx={{
+          minWidth: 275,
+          "&::-webkit-scrollbar": {
+            width: "8px"
+          },
+          "&::-webkit-scrollbar-track": {
+            backgroundColor: "#f1f1f1",
+            borderRadius: "10px"
+          },
+          "&::-webkit-scrollbar-thumb": {
+            backgroundColor: "#888",
+            borderRadius: "10px"
+          },
+          "&::-webkit-scrollbar-thumb:hover": {
+            backgroundColor: "#555"
+          }
+        }}
+        style={{ maxHeight: "90vh", borderRadius: "10px", overflowY: "auto" }}
+      >
         <CardContent>
           <Typography variant="h1" style={{ fontWeight: "400" }}>
             مهامي
@@ -93,7 +98,7 @@ export default function TodoList() {
           >
             <ToggleButton value="non-completed">غير المنجز</ToggleButton>
             <ToggleButton value="completed">المنجز</ToggleButton>
-            <ToggleButton  value="all">الكل</ToggleButton>
+            <ToggleButton value="all">الكل</ToggleButton>
           </ToggleButtonGroup>
           {todosTask}
           <Grid container spacing={2} style={{ marginTop: "20px" }}>
@@ -120,7 +125,14 @@ export default function TodoList() {
               justifyContent="space-around"
               alignItems="center"
             >
-              <Button style={{width:"100%", height:"100%"}} variant="contained" onClick={handleAddClick} disabled={titleInput.length === 0} >إضافة</Button>
+              <Button
+                style={{ width: "100%", height: "100%" }}
+                variant="contained"
+                onClick={handleAddClick}
+                disabled={titleInput.length === 0}
+              >
+                إضافة
+              </Button>
             </Grid>
           </Grid>
         </CardContent>
@@ -153,8 +165,6 @@ export default function TodoList() {
 // ~ if don't make singel-source of turth  that case if any changing happen that led to changeing all sources tath is not good pratic if have more sources and can led to some probelms
 // ~ so any thing can be computed do that not need add , new varibale or row in database or complier , that cause unflexiablity and make change is very hard
 
-
-
 /* Deploying The Project */
 // browser not know react , he jsut know pure hmtl and js and css
 // when you write npm run start , rect code translte to pure hmtl and js and css
@@ -166,15 +176,6 @@ export default function TodoList() {
 // ~ so can upload folder (build) manual or can connect this file with github , if connect with github anycahnge in git appear in netlify
 //* (??) returns the right value only if the left is null or undefined, while || returns it if the left is any falsy value.
 // ? search about react gh pages to uplaod you project to git hup
-// ** first we should create new repo
-// ~  (1) $ npm install gh-pages --save-dev
-// ~  (2) Add a homepage property in this format*: https://{username}.github.io/{repo-name}
-// ~  (3) Add a (predeploy) property and a (deploy) property to the scripts object:
-// ~  (4) $ git init
-// ~  (5) $ git remote add origin https://github.com/{username}/{repo-name}.git
-// ~  (6) npm run deploy
-
-
 // creat repo , then go ghithub react gh pages to show cmmand
 //  $ git init
 // $ npm install gh-pages --save-dev --> from ghithub react gh pages
