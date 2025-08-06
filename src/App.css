@@ -1,38 +1,49 @@
 .App {
   text-align: center;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+
+/* style todo list component */
+button:is([aria-label="check"] , [aria-label="edit"] , [aria-label="delete"]){
+  transition: all 0.2s !important;
+}
+/* :is() is a CSS functional pseudo-class that lets you group multiple selectors and apply the same rules if any one of them matches, without repeating yourself. */
+button:is([aria-label="check"] , [aria-label="edit"] , [aria-label="delete"]):hover {
+ background-color: #c5c5c5 !important;
+ box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.4);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* Custom Fonts */
+@font-face {
+  font-family:mycairofont;
+  /* 
+    /public/fonts/ ==> this is absolute path , mean start from begging of the project
+    ../public/fonts/ ==> this is realtive , mean from src folder back to public then go font folder
+   */
+  src:url("../public/fonts/Cairo-Regular.ttf");
+  /* font weight decide which type of this fonts used , when we used in css then brower know whant type should be used form all this type*/
+  font-weight: normal;
 }
+@font-face {
+  font-family:mycairofont;
+  src:url("../public/fonts/Cairo-Black.ttf");
+  font-weight: bold;
+}
+@font-face {
+  font-family:mycairofont;
+  src:url("../public/fonts/Cairo-Black.ttf");
+  font-weight: 800;
+}
+@font-face {
+  font-family:mycairofont;
+  src:url("../public/fonts/Cairo-Light.ttf");
+  font-weight: 200;
+ 
+}
+/*  ~ can reduce that lines with sass and less search about that */
+/* Custom Fonts */
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
